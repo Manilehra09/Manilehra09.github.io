@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manvir Singh Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a systems blueprint. Navy sheet, cyan linework, copper annotations.
+   The Red Hat badges are the only red on the page, so they carry the eye.
+   One orchestrated moment: the hero orbit, eleven credentials circling the Architect badge. */
+:root{
+  color-scheme: dark;
+  --ink:#0a1826;        /* sheet */
+  --ink-2:#0f2236;      /* raised panel */
+  --line:#24425c;       /* linework */
+  --line-soft:#173049;
+  --cyan:#76d4e8;       /* drawing ink */
+  --copper:#d9925c;     /* annotation */
+  --paper:#e8eef3;      /* text */
+  --muted:#8ea6b9;
+  --display:"Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --wrap:1180px;
+  --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* blueprint grid, drifting very slowly */
+body::before{
+  content:"";position:fixed;inset:-80px;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(var(--line-soft) 1px,transparent 1px) 0 0/80px 80px,
+    linear-gradient(90deg,var(--line-soft) 1px,transparent 1px) 0 0/80px 80px,
+    linear-gradient(rgba(23,48,73,.45) 1px,transparent 1px) 0 0/16px 16px,
+    linear-gradient(90deg,rgba(23,48,73,.45) 1px,transparent 1px) 0 0/16px 16px;
+  opacity:.55;animation:drift 60s linear infinite;
+  mask-image:radial-gradient(ellipse at 60% 20%,#000 0%,rgba(0,0,0,.35) 70%);
+}
+@keyframes drift{to{transform:translate(80px,80px)}}
+a{color:inherit}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+
+/* ---------- ambient motion ---------- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:30;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--cyan),var(--copper))}
+.glow{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(460px circle at var(--gx,62%) var(--gy,28%),rgba(118,212,232,.11),transparent 70%)}
+#net{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:20;background:rgba(10,24,38,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.mark{font-family:var(--display);font-size:20px;text-decoration:none;letter-spacing:-.01em}
+.mark i{color:var(--copper);font-style:italic}
+.nav nav{display:flex;gap:clamp(12px,2.4vw,28px)}
+.nav nav a{text-decoration:none;color:var(--muted);transition:color .2s}
+.nav nav a:hover{color:var(--cyan)}
+@media (max-width:560px){.nav nav a.opt{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(36px,6vw,80px) 0 clamp(28px,4vw,56px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:clamp(20px,4vw,56px);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--copper)}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--copper)}
+h1{font-size:clamp(54px,9.2vw,128px);line-height:.9;letter-spacing:-.035em;margin:.22em 0 .26em;font-variation-settings:"opsz" 144}
+h1 span{display:block}
+h1 .l2{font-style:italic;font-weight:300;color:var(--cyan);padding-left:.5em}
+h1 .ch{display:inline-block;animation:rise .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*38ms + 80ms)}
+@keyframes rise{from{transform:translateY(.5em) rotate(6deg);opacity:.0}to{transform:none;opacity:1}}
+.lede{max-width:34em;color:#c9d6e0;font-size:clamp(17px,1.5vw,19px);margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:0;margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.facts li{flex:1 1 130px;padding:14px 16px 0 0}
+.facts b{display:block;font:400 34px/1 var(--display);font-variant-numeric:tabular-nums;color:var(--paper)}
+.facts span{color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid var(--line);text-decoration:none;border-radius:2px;transition:background .2s,border-color .2s,color .2s}
+.btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn.solid{background:var(--cyan);border-color:var(--cyan);color:#06202c}
+.btn.solid:hover{background:#a6e6f3;color:#06202c}
+
+/* orbit */
+.orbit{transition:transform .5s cubic-bezier(.2,.8,.2,1);position:relative;aspect-ratio:1000/720;width:100%;user-select:none;margin-bottom:3.4em}
+.orbit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ring{fill:none;stroke:var(--line);stroke-width:1.2}
+.ring.dash{stroke:var(--cyan);stroke-dasharray:2 10;opacity:.7;animation:dash 40s linear infinite}
+.ring.dash.rev{animation-direction:reverse}
+@keyframes dash{to{stroke-dashoffset:-480}}
+.pulse{fill:none;stroke:var(--copper);stroke-width:1;transform-origin:center;transform-box:fill-box;animation:pulse 3.6s ease-out infinite}
+.pulse.p2{animation-delay:1.8s}
+@keyframes pulse{from{transform:scale(.55);opacity:.8}to{transform:scale(1.5);opacity:0}}
+.ob{position:absolute;left:0;top:0;width:11%;aspect-ratio:1;will-change:transform;border-radius:9%;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.ob.inner{width:12%}
+.ob img,.core img{width:100%;height:100%;pointer-events:none}
+.ob:hover{filter:drop-shadow(0 0 0 rgba(0,0,0,0)) drop-shadow(0 0 16px rgba(118,212,232,.7))}
+.core{position:absolute;left:50%;top:50%;width:22%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:2;filter:drop-shadow(0 18px 40px rgba(0,0,0,.6));animation:bob 6s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,-53%)}}
+.callout{position:absolute;left:0;right:0;top:100%;text-align:center;color:var(--muted);min-height:1.6em}
+.callout b{color:var(--cyan);font-weight:500}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .orbit{order:-1;max-width:560px;margin:0 auto}
+}
+
+/* ---------- sections ---------- */
+section{padding:clamp(48px,7vw,96px) 0}
+.head{display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:end;margin-bottom:clamp(24px,4vw,44px);border-bottom:1px solid var(--line);padding-bottom:18px}
+.head{position:relative}
+.head::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:linear-gradient(90deg,var(--cyan),transparent);transform-origin:0 50%;transition:transform 1.4s cubic-bezier(.2,.8,.2,1) .15s}
+.js .head:not(.in)::after{transform:scaleX(0)}
+.head h2{transition:letter-spacing 1.1s cubic-bezier(.2,.8,.2,1)}
+.js .head:not(.in) h2{letter-spacing:.02em}
+.head .mono{grid-column:1/-1;color:var(--copper)}
+.head h2{font-size:clamp(34px,5vw,60px);line-height:1;letter-spacing:-.02em}
+.head p{margin:0;color:var(--muted);max-width:38em;justify-self:end}
+@media (max-width:760px){.head{grid-template-columns:1fr}.head p{justify-self:start}}
+.reveal{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.js .reveal:not(.in){transform:translateY(26px)}
+
+/* marquee */
+.tape{border-block:1px solid var(--line);overflow:hidden;padding:14px 0;background:rgba(15,34,54,.6)}
+.tape div{display:flex;gap:44px;width:max-content;animation:tape 46s linear infinite;font:300 italic clamp(26px,3.6vw,44px)/1 var(--display);white-space:nowrap}
+.tape span:nth-child(odd){color:transparent;-webkit-text-stroke:1px var(--cyan)}
+.tape span:nth-child(even){color:var(--copper);font-style:normal;font-size:.5em;align-self:center}
+@keyframes tape{to{transform:translateX(-50%)}}
+
+/* credentials */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{padding:8px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);transition:all .2s}
+.chip:hover{color:var(--paper);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.chip sup{font-size:.8em;margin-left:5px;opacity:.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;perspective:1400px}
+.card{position:relative;display:flex;flex-direction:column;gap:14px;padding:22px 20px 18px;background:linear-gradient(160deg,var(--ink-2),#0b1c2d);border:1px solid var(--line);border-radius:3px;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-style:preserve-3d;transition:transform .35s ease,border-color .25s;overflow:hidden}
+.card:hover{border-color:var(--cyan);transition:transform .08s linear,border-color .25s}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(118,212,232,.16),transparent 65%)}
+.card:hover::after{opacity:1}
+.card.hide{display:none}
+.card.pop{animation:pop .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--n)*40ms)}
+@keyframes pop{from{transform:translateY(18px) scale(.96)}}
+.card .top{display:flex;justify-content:space-between;color:var(--muted)}
+.card .top b{color:var(--copper);font-weight:500}
+.badge{display:block;position:relative;width:62%;aspect-ratio:1;margin:2px auto 4px;transform:translateZ(40px);transition:transform .4s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 14px 22px rgba(0,0,0,.55))}
+.card:hover .badge{transform:translateZ(60px) scale(1.06)}
+.card h3{font-size:21px;line-height:1.18;letter-spacing:-.01em;min-height:2.36em}
+.card .acts{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:11.5px;letter-spacing:.05em;margin-top:auto;padding-top:12px;border-top:1px solid var(--line-soft)}
+.link{color:var(--cyan);text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.link:hover{text-decoration:underline;text-underline-offset:4px}
+.card.apex{grid-column:1/-1;flex-direction:row;align-items:center;gap:26px;border-color:var(--copper);background:linear-gradient(140deg,#17283a,#0b1c2d)}
+.card.apex .badge{width:min(230px,34%);margin:0 clamp(0px,3vw,36px);flex:none}
+.card.apex .col{display:flex;flex-direction:column;gap:12px;flex:1;min-width:0}
+.card.apex h3{font-size:clamp(26px,3vw,36px);min-height:0}
+.card.apex p{margin:0;color:var(--muted);font-size:16px;max-width:36em}
+@media (max-width:620px){.card.apex{grid-column:auto;flex-direction:column;align-items:stretch}.card.apex .badge{width:62%;margin:0 auto}}
+
+.rhv{display:grid;grid-template-columns:auto 1fr auto;gap:8px 28px;align-items:center;padding:18px 22px;margin-bottom:26px;text-decoration:none;
+  border:1px solid var(--copper);border-left-width:4px;background:rgba(217,146,92,.07);border-radius:3px;transition:background .25s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rhv:hover{background:rgba(217,146,92,.15)}
+.rhv .mono:first-child{color:var(--copper)}
+.rhv .big{font:400 clamp(20px,2.4vw,28px)/1.2 var(--display)}
+.rhv .big b{font-weight:500;font-variant-numeric:tabular-nums;color:var(--cyan);white-space:nowrap}
+.rhv .go{color:var(--cyan);justify-self:end}
+.rhv:hover .go{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:820px){.rhv{grid-template-columns:1fr}.rhv .go{justify-self:start}}
+
+.subhead{display:flex;flex-wrap:wrap;gap:6px 28px;align-items:baseline;justify-content:space-between;margin:clamp(36px,5vw,60px) 0 0;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.subhead h3{font-size:clamp(26px,3.2vw,36px)}
+.subhead p{margin:0;color:var(--muted);font-size:15.5px}
+.courses{list-style:none;margin:0;padding:0}
+.courses li{display:grid;grid-template-columns:110px minmax(0,1fr) 90px auto;gap:6px 24px;align-items:center;padding:16px 8px;border-bottom:1px solid var(--line-soft);transition:background .25s,padding .35s cubic-bezier(.2,.8,.2,1)}
+.courses li:hover{background:rgba(118,212,232,.06);padding-left:18px}
+.courses time{color:var(--copper)}
+.courses h4{margin:0;font:400 21px/1.2 var(--display)}
+.courses .by{color:var(--muted);font-size:14.5px}
+.courses .hrs{color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.courses .acts{display:flex;gap:16px}
+@media (max-width:760px){.courses li{grid-template-columns:1fr auto}.courses li>div:first-of-type{grid-column:1/-1}.courses .hrs{text-align:left}.courses .acts{grid-column:1/-1}}
+
+.badge img{width:100%;height:100%}
+/* light sweeping across each badge, masked to the badge shape */
+.badge::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(112deg,transparent 42%,rgba(255,255,255,.6) 50%,transparent 58%) 130% 0/260% 100% no-repeat;
+  -webkit-mask:var(--m) center/100% 100% no-repeat;mask:var(--m) center/100% 100% no-repeat;
+  animation:sheen 6.5s cubic-bezier(.4,0,.2,1) infinite;animation-delay:calc(var(--n,0)*.55s + 1s)}
+@keyframes sheen{0%{background-position:130% 0}22%,100%{background-position:-30% 0}}
+.card:hover .badge::after{animation-duration:1.4s;animation-delay:0s}
+.card.in{animation:cardin .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--n,0)*90ms)}
+@keyframes cardin{from{translate:0 54px;rotate:2.5deg;scale:.93}}
+
+/* path chart */
+.path{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+@media (max-width:860px){.path{grid-template-columns:1fr}}
+.chart{background:rgba(15,34,54,.7);border:1px solid var(--line);padding:18px 14px 8px;border-radius:3px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart text{font:400 11px var(--mono);fill:var(--muted)}
+.chart .gl{stroke:var(--line-soft);stroke-width:1}
+.chart .ghost{fill:none;stroke:var(--line);stroke-width:2}
+.chart .live{fill:none;stroke:var(--cyan);stroke-width:2.5;stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 2.6s cubic-bezier(.5,0,.2,1)}
+.js .chart:not(.in) .live{stroke-dashoffset:1}
+.chart .area{fill:url(#fade);transition:opacity 1.4s 1.2s}
+.js .chart:not(.in) .area{opacity:0}
+.chart .dot{fill:var(--ink);stroke:var(--cyan);stroke-width:2;transition:r .2s}
+.chart .dot.on{r:7;fill:var(--cyan)}
+.chart .dot.apex{stroke:var(--copper);fill:var(--copper)}
+.chart .tag{fill:var(--copper);font-size:12px}
+.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.steps li{display:grid;grid-template-columns:86px 1fr 26px;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line-soft);align-items:baseline;transition:background .2s}
+.steps li.on{background:rgba(118,212,232,.08)}
+.steps time{color:var(--copper)}
+.steps .n{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.steps span.t{font-size:15.5px;line-height:1.4}
+
+/* work */
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.panel{border:1px solid var(--line);background:rgba(15,34,54,.7);padding:26px 24px;border-radius:3px}
+.panel h3{font-size:28px;margin-bottom:10px}
+.panel p{margin:0 0 16px;color:#c9d6e0}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tags li{border:1px solid var(--line);padding:5px 10px;color:var(--cyan);transition:background .25s,color .25s,translate .3s}
+.tags li:hover{background:var(--cyan);color:#06202c;translate:0 -3px}
+.repos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0;border:1px solid var(--line);margin-top:18px}
+.repo{display:flex;flex-direction:column;gap:8px;padding:22px 20px;text-decoration:none;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);transition:background .25s;position:relative;overflow:hidden}
+.repo::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:var(--copper);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.repo:hover::before{transform:scaleX(1)}
+.repo:hover{background:rgba(118,212,232,.07)}
+.repo .mono{color:var(--copper)}
+.repo h3{font-size:21px;line-height:1.2}
+.repo p{margin:0;color:var(--muted);font-size:15px}
+a.repo::after{content:"↗";position:absolute;right:16px;top:16px;color:var(--muted);transition:transform .25s,color .25s}
+a.repo:hover::after{transform:translate(3px,-3px);color:var(--cyan)}
+
+.roles{list-style:none;margin:0;padding:0;border-left:1px solid var(--line);margin-left:6px;position:relative}
+.roles::before{content:"";position:absolute;left:-2px;top:0;bottom:0;width:3px;background:linear-gradient(var(--cyan),var(--copper));transform-origin:50% 0;transform:scaleY(var(--tp,1))}
+.roles>li{display:grid;grid-template-columns:200px 1fr;gap:10px 28px;padding:0 0 34px 28px;position:relative}
+.roles>li::before{content:"";position:absolute;left:-6px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--ink);border:2px solid var(--cyan)}
+.roles>li:first-child::before{background:var(--cyan);box-shadow:0 0 0 0 rgba(118,212,232,.6);animation:ping 2.4s ease-out infinite}
+@keyframes ping{to{box-shadow:0 0 0 14px rgba(118,212,232,0)}}
+.roles .when{display:flex;flex-direction:column;gap:4px;padding-top:6px}
+.roles .when b{color:var(--copper);font-weight:500}
+.roles .when span{color:var(--muted)}
+.roles h3{font-size:clamp(24px,2.8vw,32px);line-height:1.15}
+.roles h3 i{color:var(--cyan);font-weight:300}
+.roles .sub{display:block;color:var(--muted);margin:8px 0 12px}
+.roles ul,.pts{margin:0 0 14px;padding-left:1.1em;color:#c9d6e0;max-width:44em}
+.roles ul li,.pts li{margin-bottom:6px}
+.roles ul li::marker,.pts li::marker{color:var(--copper)}
+.pts{margin-bottom:0}
+@media (max-width:700px){.roles>li{grid-template-columns:1fr}}
+.edu{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;margin-top:18px;padding:16px 20px;border:1px solid var(--line);border-radius:3px}
+.edu .mono:first-child{color:var(--copper)}
+.edu b{font-weight:500}
+
+/* contact */
+.contact{border-top:1px solid var(--line)}
+.contact h2{font-size:clamp(40px,7vw,96px);line-height:.95;letter-spacing:-.03em;max-width:12em}
+.contact h2 i{color:var(--cyan);font-weight:300}
+.contact h2 .w{display:inline-block;transition:translate .9s cubic-bezier(.2,.8,.2,1),rotate .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--w)*70ms)}
+.js .contact h2:not(.in) .w{translate:0 .35em;rotate:4deg}
+.contact ul{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:0 24px;border-top:1px solid var(--line)}
+.contact li a{display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:center;padding:16px 14px 16px 0;text-decoration:none;border-bottom:1px solid var(--line-soft)}
+.contact .tx{display:flex;flex-direction:column;gap:3px;min-width:0}
+.contact .tx span:last-child{font-size:16.5px;overflow-wrap:anywhere}
+.contact li a:hover .tx span:last-child{color:var(--cyan)}
+.contact li .mono{color:var(--copper)}
+.ico{width:48px;height:48px;padding:11px;border:1px solid var(--line);border-radius:3px;fill:none;stroke:var(--cyan);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+  transition:background .25s,stroke .25s,border-color .25s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.contact li a:hover .ico{background:var(--cyan);border-color:var(--cyan);stroke:#06202c;transform:translateY(-3px) rotate(-6deg)}
+footer{padding:26px 0 40px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+/* certificate viewer */
+dialog{border:1px solid var(--line);background:var(--ink-2);color:var(--paper);padding:0;width:min(1040px,calc(100vw - 24px));max-height:calc(100dvh - 24px);border-radius:4px;overflow:auto}
+dialog::backdrop{background:rgba(4,12,20,.82);backdrop-filter:blur(4px)}
+dialog[open]{animation:zoom .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes zoom{from{transform:scale(.94) translateY(14px)}}
+.vh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.vh .mono{color:var(--copper)}
+.vb{background:#fff;min-height:120px}
+.vb img{width:100%;height:auto}
+.vf{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px}
+.vf h3{font-size:22px}
+.vf .mono{color:var(--muted)}
+.vn{display:flex;gap:8px 14px;align-items:center;flex-wrap:wrap}
+[hidden]{display:none!important}
+.ib{width:38px;height:38px;border:1px solid var(--line);display:grid;place-items:center;border-radius:2px}
+.ib:hover{border-color:var(--cyan);color:var(--cyan)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .js .reveal:not(.in){transform:none}
+  #net,.glow{display:none}
+  .roles::before{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top">Manvir <i>Singh</i></a>
+    <nav class="mono" aria-label="Sections">
+      <a href="#credentials">Credentials</a>
+      <a href="#path">Path</a>
+      <a class="opt" href="#work">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow mono">Red Hat Certified Architect in OpenShift</div>
+      <h1 aria-label="Manvir Singh"><span class="l1" data-split>Manvir</span><span class="l2" data-split>Singh</span></h1>
+      <p class="lede">Corporate trainer and OpenShift consultant. I deploy and secure enterprise OpenShift platforms, automate them with Ansible, manage them at scale with ACM and ACS, and teach engineers to do the same.</p>
+      <ul class="facts">
+        <li><b data-count="12" data-from="0">12</b><span class="mono">Red Hat credentials</span></li>
+        <li><b data-count="2023" data-from="1990">2023</b><span class="mono">First: RHCSA</span></li>
+        <li><b data-count="2026" data-from="1990">2026</b><span class="mono">Architect</span></li>
+      </ul>
+      <div class="cta mono">
+        <a class="btn solid" href="#credentials">See all 12 badges</a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="orbit" id="orbit" aria-label="Twelve Red Hat badges. Eleven orbit the Architect badge.">
+      <svg viewBox="-500 -360 1000 720" aria-hidden="true">
+        <g transform="rotate(-14)">
+          <ellipse class="ring" rx="440" ry="225"/>
+          <ellipse class="ring dash" rx="440" ry="225"/>
+          <ellipse class="ring" rx="300" ry="155"/>
+          <ellipse class="ring dash rev" rx="300" ry="155"/>
+        </g>
+        <circle class="pulse" r="125"/><circle class="pulse p2" r="125"/>
+      </svg>
+      <button class="core" data-open="rhca-openshift" aria-label="Red Hat Certified Architect in OpenShift, view certificate"><img src="badges/rhca-openshift.png" alt=""></button>
+      <div class="callout mono" id="callout">Hover a badge. Click to open its certificate.</div>
+    </div>
+  </div>
+</section>
+
+<div class="tape" aria-hidden="true"><div id="tape"></div></div>
+
+<section id="credentials">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="mono">Sheet 01 / Credentials</span>
+      <h2>Twelve badges, all verifiable</h2>
+      <p>Every badge opens the original certificate. Each one can be checked two ways: its Credly record, or Red Hat’s own verification page.</p>
+    </div>
+    <a class="rhv reveal" href="https://rhtapps.redhat.com/verify?certId=230-189-789" target="_blank" rel="noopener">
+      <span class="mono">Official Red Hat verification</span>
+      <span class="big">Certification ID <b>230-189-789</b></span>
+      <span class="mono go">All 12 current until 4 Nov 2029 · Check on redhat.com ↗</span>
+    </a>
+    <div class="chips mono" id="chips" role="group" aria-label="Filter by track"></div>
+    <div class="grid" id="grid"></div>
+
+    <div class="subhead reveal">
+      <h3>Course certificates</h3>
+      <p>Udemy course completions taken alongside the Red Hat track. <span id="chours"></span></p>
+    </div>
+    <ol class="courses" id="courses"></ol>
+  </div>
+</section>
+
+<section id="path">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="mono">Sheet 02 / Path</span>
+      <h2>From RHCSA to Architect</h2>
+      <p>Thirty-nine months from the first exam to RHCA. Linux and Ansible first, then the OpenShift track through 2026.</p>
+    </div>
+    <div class="path">
+      <div class="chart reveal" id="chart" role="img" aria-label="Step chart of cumulative Red Hat credentials, rising from 1 in August 2023 to 12 in November 2026."></div>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="mono">Sheet 03 / Experience</span>
+      <h2>Build it, run it, teach it</h2>
+      <p>Enterprise platform deployment, container security, Ansible automation and multi-cluster management, taught through hands-on labs built from real scenarios.</p>
+    </div>
+
+    <ol class="roles">
+      <li class="reveal">
+        <div class="when mono"><b>Feb 2025 – Present</b><span>Ludhiana, Punjab</span></div>
+        <div>
+          <h3>Corporate Technical Trainer <i>at Kubearc Academy</i></h3>
+          <span class="mono sub">OpenShift · Kubernetes · DevOps</span>
+          <ul>
+            <li>Deliver enterprise training on OpenShift, Kubernetes, Linux, Ansible and DevOps.</li>
+            <li>Design hands-on labs and real-world enterprise scenarios.</li>
+            <li>Train corporate professionals and working engineers for Red Hat certification exams.</li>
+          </ul>
+          <a class="link mono" href="https://kubearc.com" target="_blank" rel="noopener">kubearc.com ↗</a>
+        </div>
+      </li>
+      <li class="reveal">
+        <div class="when mono"><b>Aug 2022 – Jan 2025</b><span>Freelance and contract</span></div>
+        <div>
+          <h3>Technical Trainer</h3>
+          <span class="mono sub">Red Hat OpenShift · Linux · Kubernetes · DevOps</span>
+          <ul>
+            <li>Delivered training for corporate clients and training institutes, including Grras Solutions Pvt. Ltd.</li>
+            <li>Developed training content, labs and certification-focused learning paths.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+    <div class="duo" style="margin-top:18px">
+      <div class="panel reveal">
+        <span class="mono" style="color:var(--copper)">Platform</span>
+        <h3>OpenShift and Kubernetes</h3>
+        <ul class="pts">
+          <li>Install and manage OpenShift 4.x on-prem with UPI, IPI, Agent-based and Assisted installers.</li>
+          <li>External authentication with Entra ID, Okta and Active Directory.</li>
+          <li>Custom SSL for API and Ingress, Network Policies and custom SCCs.</li>
+          <li>Day-2 automation with Machine Config, including proxy setup.</li>
+          <li>Operator installs and upgrades from console and CLI.</li>
+          <li>Resource governance with quotas and limit ranges.</li>
+        </ul>
+      </div>
+      <div class="panel reveal">
+        <span class="mono" style="color:var(--copper)">Training delivered</span>
+        <h3>Instructor-led, lab-first</h3>
+        <ul class="pts">
+          <li>OpenShift Administration, Advanced Cluster Security and Advanced Cluster Management.</li>
+          <li>RHEL 8, 9 and 10, Ansible and the wider Red Hat ecosystem.</li>
+          <li>OpenShift security and container platform best practices for engineering teams.</li>
+          <li>DevOps and AWS courses.</li>
+        </ul>
+        <ul class="tags mono" style="margin-top:16px"><li>OpenShift</li><li>Kubernetes</li><li>RHEL</li><li>Ansible</li><li>ACM</li><li>ACS</li><li>Satellite</li><li>AWS</li></ul>
+      </div>
+    </div>
+
+    <div class="repos reveal">
+      <div class="repo"><span class="mono">Key project</span><h3>Disconnected OpenShift install</h3><p>Clusters deployed with oc-mirror v2 and private registries, with image, proxy and Day-2 registry sync configured.</p></div>
+      <div class="repo"><span class="mono">Key project</span><h3>OpenShift with ACS, ACM and ODF</h3><p>Installation with Advanced Cluster Security, Advanced Cluster Management and OpenShift Data Foundation.</p></div>
+      <div class="repo"><span class="mono">Red Hat Satellite</span><h3>Lifecycle and patch management</h3><p>Connected installs and upgrades of Satellite and Capsule servers, subscriptions, content hosts and RHEL Leapp upgrades.</p></div>
+      <div class="repo"><span class="mono">Ansible</span><h3>Automation at scale</h3><p>Playbooks and roles for configuration management, application deployments and operational tasks.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="mono" style="color:var(--copper)">Sheet 04 / Contact</span>
+    <h2 class="reveal">Need a platform built, or a team <i>trained</i>?</h2>
+    <ul>
+      <li><a href="mailto:manvirsingh.it.professional@gmail.com"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg><span class="tx"><span class="mono">Email</span><span>manvirsingh.it.professional@gmail.com</span></span></a></li>
+      <li><a href="tel:+916283213933"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 18.5h3"/></svg><span class="tx"><span class="mono">Phone</span><span>+91 62832 13933</span></span></a></li>
+      <li><a href="tel:+917087915955"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 18.5h3"/></svg><span class="tx"><span class="mono">Phone 2</span><span>+91 70879 15955</span></span></a></li>
+      <li><a href="https://www.linkedin.com/in/manvir-singh-3a1bb7312" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c.6-4.2 3.6-6.2 7.5-6.2s6.900 2 7.500 6.200"/></svg><span class="tx"><span class="mono">LinkedIn</span><span>linkedin.com/in/manvir-singh-3a1bb7312</span></span></a></li>
+      <li><a href="https://github.com/Manilehra09" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.500 7 3.500 12l5 5M15.500 7l5 5-5 5M13.500 4.500l-3 15"/></svg><span class="tx"><span class="mono">GitHub</span><span>github.com/Manilehra09</span></span></a></li>
+      <li><a href="https://www.instagram.com/mani_lehra09" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.500" width="18" height="15" rx="1.500"/><path d="m3.500 16 5-5 4 4 2.500-2.500 5.500 5.500"/><circle cx="15.500" cy="9" r="1.400"/></svg><span class="tx"><span class="mono">Instagram</span><span>instagram.com/mani_lehra09</span></span></a></li>
+      <li><a href="https://kubearc.com" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.500 9.500 12 5l9.500 4.500L12 14z"/><path d="M6.500 11.700V16c1.500 1.500 3.300 2.200 5.500 2.200s4-.7 5.500-2.200v-4.300M21.500 9.500V15"/></svg><span class="tx"><span class="mono">Academy</span><span>kubearc.com</span></span></a></li>
+      <li><a href="https://rhtapps.redhat.com/verify?certId=230-189-789" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.500 6v5.500c0 4.600 3 8 7.500 9.500 4.500-1.500 7.500-4.900 7.500-9.500V6z"/><path d="m8.500 12 2.500 2.500 4.500-5"/></svg><span class="tx"><span class="mono">Red Hat verification</span><span>ID 230-189-789</span></span></a></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap mono"><span>Manvir Singh · Ludhiana, Punjab, India</span><a class="link" href="https://rhtapps.redhat.com/verify?certId=230-189-789" target="_blank" rel="noopener">Red Hat certification ID 230-189-789 · Verify ↗</a></div></footer>
+
+<dialog id="viewer" aria-labelledby="vt">
+  <div class="vh"><span class="mono" id="vk"></span><button class="ib" id="vx" aria-label="Close">✕</button></div>
+  <div class="vb"><img id="vi" alt=""></div>
+  <div class="vf">
+    <div><h3 id="vt"></h3><span class="mono" id="vm"></span></div>
+    <div class="vn mono">
+      <a class="link" id="vv" target="_blank" rel="noopener">Credly ↗</a>
+      <a class="link" href="https://rhtapps.redhat.com/verify?certId=230-189-789" target="_blank" rel="noopener" id="vr">Red Hat verify ↗</a>
+      <button class="ib" id="vp" aria-label="Previous certificate">←</button>
+      <button class="ib" id="vnx" aria-label="Next certificate">→</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+document.documentElement.classList.add('js');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const C = 'https://www.credly.com/';
+const RH = 'https://rhtapps.redhat.com/verify?certId=230-189-789';
+// Taken from the twelve certificate PDFs. Order is chronological.
+const CERTS = [
+ {id:'ex200',          t:'Red Hat Certified System Administrator',                         s:'RHCSA',                    d:'2023-08-24', code:'EX200', k:'linux',     v:C+'badges/e4c7eb11-6357-4379-9025-a90257895a74'},
+ {id:'rhce-linux',     t:'Red Hat Certified Engineer in Enterprise Linux',                 s:'RHCE, Enterprise Linux',   d:'2023-12-07', code:'RHCE',  k:'linux',     v:C+'badges/02bdc54b-1fe6-4b00-a925-9cdf588bc4eb'},
+ {id:'ex294',          t:'Red Hat Certified Engineer in Ansible',                          s:'RHCE, Ansible',            d:'2023-12-07', code:'EX294', k:'ansible',   v:C+'badges/a977142b-104a-485e-bbeb-2cf99ab58fa5'},
+ {id:'ansible',        t:'Red Hat Certified Advanced System Administrator in Ansible',     s:'Advanced SysAdmin, Ansible',d:'2023-12-07', code:'',     k:'ansible',   v:C+'badges/2007b049-3900-4bb8-9f60-1fd5ad5e02a0'},
+ {id:'ex188',          t:'Red Hat Certified Developer in Cloud-native Applications',       s:'Developer, Cloud-native',  d:'2024-04-12', code:'EX188', k:'developer', v:C+'badges/d4a932dd-edd6-465c-8dfd-28d769242248'},
+ {id:'ex280',          t:'Red Hat Certified System Administrator in OpenShift',            s:'SysAdmin, OpenShift',      d:'2025-11-17', code:'EX280', k:'openshift', v:C+'badges/bf4453ba-9b91-4c81-8e93-b694b8e4bebb'},
+ {id:'ex432',          t:'Red Hat Certified Specialist in OpenShift Advanced Cluster Management', s:'Specialist, ACM',  d:'2026-03-31', code:'EX432', k:'openshift', v:C+'go/JyPRqnsJ'},
+ {id:'ex430',          t:'Red Hat Certified Specialist in OpenShift Advanced Cluster Security',   s:'Specialist, ACS',  d:'2026-05-08', code:'EX430', k:'openshift', v:C+'badges/3febed9c-898d-4924-a979-f071914aa509'},
+ {id:'ex380',          t:'Red Hat Certified Advanced System Administrator in OpenShift',   s:'Advanced SysAdmin, OpenShift', d:'2026-10-16', code:'EX380', k:'openshift', v:C+'badges/15b47568-2a04-4b5f-87f4-0021582bcf41'},
+ {id:'rhce-openshift', t:'Red Hat Certified Engineer in OpenShift',                        s:'RHCE, OpenShift',          d:'2026-10-16', code:'RHCE',  k:'openshift', v:C+'badges/530a32fd-1723-43d1-9f66-d5892aad60f9'},
+ {id:'ex316',          t:'Red Hat Certified Specialist in OpenShift Virtualization',       s:'Specialist, Virtualization', d:'2026-11-04', code:'EX316', k:'openshift', v:C+'badges/9e6245e7-21ae-4e69-98b2-9be440e82ff8'},
+ {id:'rhca-openshift', t:'Red Hat Certified Architect in OpenShift',                       s:'RHCA, OpenShift',          d:'2026-11-04', code:'RHCA',  k:'openshift', v:C+'badges/b85780e8-83d3-4a4f-98fb-8dd7cad4528f', apex:true}
+];
+// Udemy course completions, from the four course certificate PDFs.
+const U = 'https://ude.my/';
+const COURSES = [
+ {id:'udemy-devops-bootcamp',   t:'The Ultimate DevOps Bootcamp',                              by:'Mumshad Mannambeth, KodeKloud Training', d:'2026-02-03', h:17.5, v:U+'UC-bf81169e-4c21-493b-af60-09fb8a11b43d'},
+ {id:'udemy-ethical-hacking',   t:'Learn Ethical Hacking From Scratch',                        by:'Zaid Sabih, z Security',                 d:'2025-07-16', h:15.5, v:U+'UC-6a268805-b01c-461c-86ff-913ae919a534'},
+ {id:'udemy-cka',               t:'Certified Kubernetes Administrator (CKA) with Practice Tests', by:'Mumshad Mannambeth, KodeKloud Training', d:'2024-10-04', h:23.5, v:U+'UC-2e7ea32e-f52c-4740-ba18-a9678c7e7193'},
+ {id:'udemy-k8s-beginners',     t:'Kubernetes for the Absolute Beginners - Hands-on',          by:'Mumshad Mannambeth, KodeKloud Training', d:'2024-10-01', h:6.5,  v:U+'UC-8acc4742-8ee1-457f-8553-69367eb5425c'}
+].map(c => ({...c, udemy:true}));
+const ALL = [...CERTS, ...COURSES];
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = d => { const [y,m,dd] = d.split('-').map(Number); return `${dd} ${MON[m-1]} ${y}`; };
+const fmtShort = d => { const [y,m] = d.split('-').map(Number); return `${MON[m-1]} ${y}`; };
+const $ = s => document.querySelector(s);
+const el = (tag, attrs={}, html='') => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); e.innerHTML = html; return e; };
+
+/* ---- hero name: letter-by-letter rise ---- */
+let ci = 0;
+document.querySelectorAll('[data-split]').forEach(n => {
+  const txt = n.textContent; n.textContent = '';
+  for (const ch of txt) { const s = el('span', {class:'ch', 'aria-hidden':'true', style:`--i:${ci++}`}); s.textContent = ch; n.append(s); }
+});
+
+/* ---- marquee ---- */
+const words = ['Enterprise Linux','Ansible','Podman','Kubernetes','OpenShift','Advanced Cluster Management','Advanced Cluster Security','Virtualization'];
+$('#tape').innerHTML = [...words, ...words].map(w => `<span>${w}</span><span>✦</span>`).join('');
+
+/* ---- certificate viewer ---- */
+const dlg = $('#viewer'); let cur = 0;
+function show(i){
+  cur = (i + ALL.length) % ALL.length; const c = ALL[cur];
+  $('#vi').src = `certs/${c.id}.jpg`; $('#vi').alt = `Certificate: ${c.t}, issued to Manvir Singh`;
+  $('#vt').textContent = c.t;
+  $('#vk').textContent = `${c.udemy ? 'Course certificate' : 'Red Hat certificate'} ${String(cur+1).padStart(2,'0')} / ${ALL.length}`;
+  $('#vm').textContent = c.udemy ? `Udemy course completion · ${fmt(c.d)} · ${c.h} hours` : `Issued ${fmt(c.d)}${c.code ? ' · ' + c.code : ''}`;
+  $('#vv').href = c.v; $('#vv').textContent = c.udemy ? 'Verify on Udemy ↗' : 'Credly ↗'; $('#vr').hidden = !!c.udemy;
+}
+function open(id){ show(ALL.findIndex(c => c.id === id)); if (!dlg.open) dlg.showModal(); }
+$('#vx').onclick = () => dlg.close();
+$('#vp').onclick = () => show(cur - 1);
+$('#vnx').onclick = () => show(cur + 1);
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(cur-1); if (e.key === 'ArrowRight') show(cur+1); });
+document.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) open(b.dataset.open); });
+
+/* ---- hero orbit ---- */
+(() => {
+  const box = $('#orbit'), callout = $('#callout'), rest = callout.textContent;
+  const TILT = -14 * Math.PI / 180, cosT = Math.cos(TILT), sinT = Math.sin(TILT);
+  const inner = CERTS.filter(c => c.d >= '2026' && !c.apex);   // 2026 OpenShift track
+  const outer = CERTS.filter(c => c.d < '2026');               // 2023 to 2025 foundation
+  const items = [];
+  [[inner, .30, .155, .16, 'inner'], [outer, .44, .225, -.1, '']].forEach(([list, rx, ry, speed, cls]) => {
+    list.forEach((c, i) => {
+      const b = el('button', {class:'ob ' + cls, 'data-open':c.id, 'aria-label':`${c.t}, view certificate`}, `<img src="badges/${c.id}.png" alt="">`);
+      const say = () => callout.innerHTML = `<b>${c.s}</b> · ${fmtShort(c.d)}`;
+      b.addEventListener('pointerenter', say); b.addEventListener('focus', say);
+      box.append(b);
+      items.push({b, rx, ry, speed, a: i / list.length * Math.PI * 2 + (cls ? .5 : 0), n: items.length});
+    });
+  });
+  let W = 0, H = 0, hold = 0, factor = 1, last = 0, t0 = 0;
+  const size = () => { W = box.clientWidth; H = box.clientHeight; };
+  new ResizeObserver(() => { size(); if (reduce) frame(0); }).observe(box); size();
+  const stop = v => () => { hold = v; if (!v) callout.textContent = rest; };
+  box.addEventListener('pointerenter', stop(1)); box.addEventListener('pointerleave', stop(0));
+  box.addEventListener('focusin', stop(1)); box.addEventListener('focusout', stop(0));
+  const ease = x => 1 - Math.pow(1 - x, 3);
+  function frame(now){
+    if (!t0) t0 = now;
+    const dt = Math.min(.05, (now - last) / 1000 || 0); last = now;
+    factor += ((hold ? 0 : 1) - factor) * Math.min(1, dt * 5);
+    for (const it of items) {
+      if (!reduce) it.a += it.speed * dt * factor;
+      const k = reduce ? 1 : ease(Math.max(0, Math.min(1, (now - t0 - 250 - it.n * 90) / 1300)));  // fly out from the core on load
+      const x = Math.cos(it.a) * it.rx * k, y = Math.sin(it.a) * it.ry * k;
+      const px = W / 2 + (x * cosT - y * sinT) * W, py = H / 2 + (x * sinT + y * cosT) * W;
+      const depth = (Math.sin(it.a) + 1) / 2;                      // 0 = far side, 1 = near side
+      const sc = (.8 + .28 * depth) * (.35 + .65 * k);
+      it.b.style.transform = `translate(${px}px,${py}px) translate(-50%,-50%) scale(${sc})`;
+      it.b.style.zIndex = depth > .5 ? 3 : 1;
+      it.b.style.opacity = .62 + .38 * depth;
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ---- credential wall ---- */
+(() => {
+  const grid = $('#grid'), chips = $('#chips');
+  const cardIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); cardIO.unobserve(e.target); } }), {threshold:.12});
+  const order = [...CERTS].reverse();  // newest first, Architect leads
+  order.forEach(c => {
+    const top = `<div class="top mono"><span>${fmt(c.d)}</span><b>${c.code}</b></div>`;
+    const acts = `<div class="acts mono"><button class="link" data-open="${c.id}">Certificate</button><a class="link" href="${c.v}" target="_blank" rel="noopener">Credly ↗</a><a class="link" href="${RH}" target="_blank" rel="noopener">Red Hat ↗</a></div>`;
+    const img = `<span class="badge" style="--m:url(badges/${c.id}.png)"><img src="badges/${c.id}.png" alt="Badge: ${c.t}" loading="lazy" width="360" height="360"></span>`;
+    const card = el('article', {class:'card' + (c.apex ? ' apex' : ''), 'data-k':c.k});
+    card.innerHTML = c.apex
+      ? `${img}<div class="col">${top}<h3>${c.t}</h3><p>Red Hat&#39;s highest certification level, reached on the OpenShift track in November 2026.</p>${acts}</div>`
+      : `${top}${img}<h3>${c.t}</h3>${acts}`;
+    if (!reduce) {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--ry', ((x - .5) * 12).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((.5 - y) * 12).toFixed(2) + 'deg');
+        card.style.setProperty('--mx', x * 100 + '%'); card.style.setProperty('--my', y * 100 + '%');
+      });
+      card.addEventListener('pointerleave', () => { card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); });
+    }
+    card.style.setProperty('--n', grid.children.length % 4); cardIO.observe(card);
+    grid.append(card);
+  });
+  const tracks = [['all','All'],['openshift','OpenShift'],['linux','Enterprise Linux'],['ansible','Ansible'],['developer','Developer']];
+  tracks.forEach(([k, label], i) => {
+    const n = k === 'all' ? CERTS.length : CERTS.filter(c => c.k === k).length;
+    const b = el('button', {class:'chip', 'aria-pressed': i === 0}, `${label}<sup>${n}</sup>`);
+    b.onclick = () => {
+      chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === b));
+      let m = 0;
+      grid.querySelectorAll('.card').forEach(card => {
+        const on = k === 'all' || card.dataset.k === k;
+        card.classList.toggle('hide', !on); card.classList.remove('pop');
+        if (on) { card.style.setProperty('--n', m++); void card.offsetWidth; card.classList.add('pop'); }
+      });
+    };
+    chips.append(b);
+  });
+})();
+
+/* ---- course certificates ---- */
+(() => {
+  const list = $('#courses');
+  COURSES.forEach(c => {
+    list.append(el('li', {class:'reveal'}, `<time class="mono" datetime="${c.d}">${fmt(c.d)}</time>
+      <div><h4>${c.t}</h4><span class="by">${c.by}</span></div>
+      <span class="hrs mono">${c.h} hours</span>
+      <div class="acts mono"><button class="link" data-open="${c.id}">Certificate</button><a class="link" href="${c.v}" target="_blank" rel="noopener">Udemy ↗</a></div>`));
+  });
+  $('#chours').textContent = `${COURSES.length} courses, ${COURSES.reduce((a, c) => a + c.h, 0)} hours.`;
+})();
+
+/* ---- path: cumulative step chart + milestone list ---- */
+(() => {
+  const Wd = 760, Ht = 340, L = 34, R = 20, T = 22, B = 30;
+  const t = d => Date.parse(d + 'T00:00:00Z'), a = t('2023-06-01'), b = t('2027-01-01');
+  const X = d => L + (t(d) - a) / (b - a) * (Wd - L - R), Y = n => Ht - B - n / 12 * (Ht - T - B);
+  const groups = [];
+  CERTS.forEach(c => { const g = groups.at(-1); if (g && g.d === c.d) g.list.push(c); else groups.push({d:c.d, list:[c]}); });
+  let n = 0, path = `M${X('2023-06-01')} ${Y(0)}`, dots = '';
+  groups.forEach((g, i) => {
+    n += g.list.length; g.n = n;
+    path += ` H${X(g.d).toFixed(1)} V${Y(n).toFixed(1)}`;
+    dots += `<circle class="dot${n === 12 ? ' apex' : ''}" data-g="${i}" cx="${X(g.d).toFixed(1)}" cy="${Y(n).toFixed(1)}" r="${n === 12 ? 6 : 4.5}"/>`;
+  });
+  const end = X('2026-12-01').toFixed(1); path += ` H${end}`;
+  const grid = [0,4,8,12].map(v => `<line class="gl" x1="${L}" x2="${Wd-R}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`).join('');
+  const years = [2024,2025,2026].map(y => `<line class="gl" x1="${X(y+'-01-01')}" x2="${X(y+'-01-01')}" y1="${T}" y2="${Ht-B}"/><text x="${X(y+'-01-01')}" y="${Ht-10}" text-anchor="middle">${y}</text>`).join('');
+  $('#chart').innerHTML = `<svg viewBox="0 0 ${Wd} ${Ht}" aria-hidden="true">
+    <defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#76d4e8" stop-opacity=".22"/><stop offset="1" stop-color="#76d4e8" stop-opacity="0"/></linearGradient></defs>
+    ${grid}${years}<text x="${X('2023-08-24')}" y="${Ht-10}" text-anchor="middle">Aug 2023</text>
+    <path class="area" d="${path} V${Y(0)} Z"/>
+    <path class="ghost" d="${path}"/><path class="live" pathLength="1" d="${path}"/>
+    ${dots}
+    <text class="tag" x="${X('2026-11-04') - 12}" y="${Y(12) - 10}" text-anchor="end">12 · Architect</text>
+    <text x="${L}" y="12">Credentials held</text>
+  </svg>`;
+  const steps = $('#steps');
+  groups.forEach((g, i) => {
+    const li = el('li', {'data-g': i}, `<time class="mono" datetime="${g.d}">${fmtShort(g.d)}</time><span class="t">${g.list.map(c => c.s).join('<br>')}</span><span class="n mono">${g.n}</span>`);
+    steps.append(li);
+  });
+  const link = (i, on) => { document.querySelectorAll(`[data-g="${i}"]`).forEach(e => e.classList.toggle('on', on)); };
+  document.querySelectorAll('[data-g]').forEach(e => {
+    e.addEventListener('pointerenter', () => link(e.dataset.g, true));
+    e.addEventListener('pointerleave', () => link(e.dataset.g, false));
+  });
+})();
+
+/* ---- hero backdrop: a drifting cluster topology with packets moving along its links ---- */
+(() => {
+  if (reduce) return;
+  const cv = $('#net'), cx = cv.getContext('2d'), hero = cv.parentElement;
+  let W = 0, H = 0, nodes = [], packets = [], on = true, last = 0;
+  const R = 150;
+  function size(){
+    const d = Math.min(2, devicePixelRatio || 1); W = hero.clientWidth; H = hero.clientHeight;
+    cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0);
+    const n = Math.max(16, Math.min(46, Math.round(W * H / 26000)));
+    nodes = Array.from({length:n}, () => ({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*14, vy:(Math.random()-.5)*14, r:Math.random() < .2 ? 2.6 : 1.5}));
+    packets = [];
+  }
+  new ResizeObserver(size).observe(hero); size();
+  new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) requestAnimationFrame(tick); }).observe(hero);
+  function tick(now){
+    if (!on) return;
+    const dt = Math.min(.05, (now - last) / 1000 || 0); last = now;
+    cx.clearRect(0, 0, W, H);
+    for (const n of nodes) { n.x += n.vx * dt; n.y += n.vy * dt; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; }
+    const links = [];
+    cx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (d < R) { links.push([a, b]); cx.strokeStyle = `rgba(118,212,232,${(.22 * (1 - d / R)).toFixed(3)})`; cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke(); }
+    }
+    cx.fillStyle = 'rgba(118,212,232,.55)';
+    for (const n of nodes) { cx.beginPath(); cx.arc(n.x, n.y, n.r, 0, 6.283); cx.fill(); }
+    if (packets.length < 7 && links.length && Math.random() < .05) { const l = links[Math.random() * links.length | 0]; packets.push({a:l[0], b:l[1], t:0}); }
+    cx.fillStyle = '#d9925c';
+    packets = packets.filter(p => (p.t += dt * .9) < 1);
+    for (const p of packets) { cx.beginPath(); cx.arc(p.a.x + (p.b.x - p.a.x) * p.t, p.a.y + (p.b.y - p.a.y) * p.t, 2.2, 0, 6.283); cx.fill(); }
+    requestAnimationFrame(tick);
+  }
+})();
+
+/* ---- scroll progress, pointer glow, orbit parallax, experience line, count-up, contact words ---- */
+(() => {
+  const root = document.documentElement, roles = document.querySelector('.roles'), orbit = $('#orbit'), hero = document.querySelector('.hero');
+  document.querySelectorAll('.contact h2').forEach(h => {
+    let w = 0;
+    [...h.childNodes].forEach(n => {
+      if (n.nodeType !== 3) { n.classList.add('w'); n.style.setProperty('--w', w++); return; }
+      const f = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(t => { if (!t.trim()) { f.append(t); return; } const sp = el('span', {class:'w', style:`--w:${w++}`}); sp.textContent = t; f.append(sp); });
+      n.replaceWith(f);
+    });
+  });
+  if (reduce) return;
+  let tick = false;
+  function onScroll(){
+    tick = false;
+    const max = root.scrollHeight - innerHeight;
+    root.style.setProperty('--p', max > 0 ? (scrollY / max).toFixed(4) : 0);
+    if (roles) { const r = roles.getBoundingClientRect(); roles.style.setProperty('--tp', Math.max(0, Math.min(1, (innerHeight * .72 - r.top) / r.height)).toFixed(3)); }
+  }
+  addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, {passive:true});
+  addEventListener('resize', onScroll); onScroll();
+  addEventListener('pointermove', e => {
+    root.style.setProperty('--gx', e.clientX + 'px'); root.style.setProperty('--gy', e.clientY + 'px');
+    const r = hero.getBoundingClientRect();
+    if (r.bottom > 0) { const x = e.clientX / innerWidth - .5, y = (e.clientY - r.top) / r.height - .5; orbit.style.transform = `perspective(1100px) rotateY(${(x * 9).toFixed(2)}deg) rotateX(${(-y * 7).toFixed(2)}deg)`; }
+  }, {passive:true});
+  document.querySelectorAll('[data-count]').forEach((b, i) => {
+    const to = +b.dataset.count, from = +b.dataset.from, t0 = performance.now() + 350 + i * 180, dur = 1500;
+    (function step(now){ const k = Math.max(0, Math.min(1, (now - t0) / dur)), e = 1 - Math.pow(1 - k, 4); b.textContent = Math.round(from + (to - from) * e); if (k < 1) requestAnimationFrame(step); })(performance.now());
+  });
+})();
+
+/* ---- scroll reveals: content is readable before these fire ---- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.18});
+document.querySelectorAll('.reveal').forEach(n => io.observe(n));
+setTimeout(() => document.querySelectorAll('.reveal').forEach(n => { const r = n.getBoundingClientRect(); if (r.top < innerHeight) n.classList.add('in'); }), 1200);
+</script>
+</body>
+</html>
